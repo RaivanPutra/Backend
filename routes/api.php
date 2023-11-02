@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AdminAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,8 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::apiResource('/category', CategoryController::class);
+Route::middleware(['auth:admin'])->group(function () {
+    Route::apiResource('/category', CategoryController::class);
+});
+Route::apiResource('/user', UserController::class);
+Route::post('/login', [AdminAuthController::class, 'login']);

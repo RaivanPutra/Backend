@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori_makanan', function (Blueprint $table) {
-            $table->id('kategori_id');
-            $table->string('nama_kategori', 100);
+        Schema::create('stok', function (Blueprint $table) {
+            $table->id('stok_id');
+            $table->unsignedBigInteger('menu_id');
+            $table->foreign('menu_id')->references('menu_id')->on('menu');
+            $table->integer('jumlah');
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_makanan');
+        Schema::dropIfExists('stok');
     }
 };
