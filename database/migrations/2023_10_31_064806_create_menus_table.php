@@ -17,7 +17,7 @@ return new class extends Migration
             $table->double('harga');
             $table->text('deskripsi');
             $table->unsignedBigInteger('jenis_id');
-            $table->foreign('jenis_id')->references('kategori_id')->on('kategori_makanan');
+            $table->foreign('jenis_id')->references('id')->on('kategori_makanan');
         });
     }
 

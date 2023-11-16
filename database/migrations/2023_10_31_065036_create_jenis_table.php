@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -12,10 +13,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jenis', function (Blueprint $table) {
-            $table->id('jenis_id');
-            $table->string('nama_jenis', 255);
+            $table->id();
+            $table->string('name', 255);
             $table->unsignedBigInteger('kategori_id');
-            $table->foreign('kategori_id')->references('kategori_id')->on('kategori_makanan');
+            $table->foreign('kategori_id')->references('id')->on('kategori_makanan');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

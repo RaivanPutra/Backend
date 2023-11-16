@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email', 250);
             $table->string('nomor_telepon', 100);
             $table->text('alamat');
+            $table->timestamps(); 
         });
     }
 

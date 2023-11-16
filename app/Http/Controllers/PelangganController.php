@@ -13,7 +13,12 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $data = Pelanggan::get();
+            return response()->json(['status' => true, 'message' => 'success', 'data' => $data]);
+        } catch (Exception | PDOException $e) {
+            return response()->json(['status' => false, 'message' => 'gagal menampilkan data']);
+        }
     }
 
     /**
@@ -29,7 +34,12 @@ class PelangganController extends Controller
      */
     public function store(StorePelangganRequest $request)
     {
-        //
+        try {
+            $data = Pelanggan::create($request->all());
+            return response()->json(['status' => true, 'message' => 'input success', 'data' => $data]);
+        } catch (Exception | PDOException $e) {
+            return response()->json(['status' => false, 'message' => 'gagal input data']);
+        }
     }
 
     /**
@@ -53,7 +63,12 @@ class PelangganController extends Controller
      */
     public function update(UpdatePelangganRequest $request, Pelanggan $pelanggan)
     {
-        //
+        try {
+            $data = $pelanggan->update();
+            return response()->json(['status' => true, 'message' => ' update data sukses', 'data' => $data]);
+        } catch (Exception | PDOException $e) {
+            return response()->json(['status' => false, 'message' => 'gagal update data', 'error_type' => $e]);
+        }
     }
 
     /**
@@ -61,6 +76,11 @@ class PelangganController extends Controller
      */
     public function destroy(Pelanggan $pelanggan)
     {
-        //
+        try {
+            $data = $pelanggan->delete();
+            return Response()->json(['status' => true, 'message' => 'data has been deleted', 'data' => $data]);
+        } catch (Exception | PDOException $e) {
+            return Response()->json(['status' => false, 'message' => 'data failed to delete']);
+        }
     }
 }
