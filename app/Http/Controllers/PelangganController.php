@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use PDOException;
 use App\Models\Pelanggan;
-use App\Http\Requests\StorePelangganRequest;
-use App\Http\Requests\UpdatePelangganRequest;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use App\Http\Requests\PelangganRequest;
 
 class PelangganController extends Controller
 {
@@ -32,7 +35,7 @@ class PelangganController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePelangganRequest $request)
+    public function store(PelangganRequest $request)
     {
         try {
             $data = Pelanggan::create($request->all());
@@ -61,10 +64,10 @@ class PelangganController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePelangganRequest $request, Pelanggan $pelanggan)
+    public function update(PelangganRequest $request, Pelanggan $pelanggan)
     {
         try {
-            $data = $pelanggan->update();
+            $data = $pelanggan->update($request->all());
             return response()->json(['status' => true, 'message' => ' update data sukses', 'data' => $data]);
         } catch (Exception | PDOException $e) {
             return response()->json(['status' => false, 'message' => 'gagal update data', 'error_type' => $e]);

@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaksi', function (Blueprint $table) {
-            $table->id('transaksi_id');
+            $table->id();
             $table->date('tanggal');
             $table->double('total_harga');
             $table->enum('metode_pembayaran',['cash','debit']);
             $table->text('keterangan');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

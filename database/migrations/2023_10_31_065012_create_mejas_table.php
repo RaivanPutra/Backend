@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('meja', function (Blueprint $table) {
-            $table->id('meja_id');
+            $table->id();
             $table->string('nomor_meja', 250);
             $table->string('kapasitas', 250);
             $table->enum('status',['baru','lama']);
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

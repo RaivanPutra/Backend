@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pemesanan', function (Blueprint $table) {
-            $table->id('pemesanan_id');
+            $table->id();
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->string('nama_pemesan');
             $table->integer('jumlah_pelanggan');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

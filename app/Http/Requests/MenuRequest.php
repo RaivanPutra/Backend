@@ -3,11 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-
-class StorePelangganRequest extends FormRequest
+class MenuRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +24,10 @@ class StorePelangganRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'required',
+            'nama_menu' => 'required',
+            'harga' => 'required',
+            'deskripsi' => 'required',
+            'jenis_id' => 'required'
         ];
     }
 

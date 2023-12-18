@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use PDOException;
 use App\Models\Meja;
-use App\Http\Requests\StoreMejaRequest;
-use App\Http\Requests\UpdateMejaRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\MejaRequest;
+use Illuminate\Routing\Controller;
+
 
 class MejaController extends Controller
 {
@@ -13,7 +17,12 @@ class MejaController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $data = Meja::get();
+            return response()->json(['status' => true, 'message' => 'success', 'data' => $data]);
+        } catch (Exception | PDOException $e) {
+            return response()->json(['status' => false, 'message' => 'gagal menampilkan data']);
+        }
     }
 
     /**
@@ -27,9 +36,14 @@ class MejaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMejaRequest $request)
+    public function store(MejaRequest $request)
     {
-        //
+        try {
+            $data = Meja::create($request->all());
+            return response()->json(['status' => true, 'message' => 'input success', 'data' => $data]);
+       } catch (Exception | PDOException $e) {
+           return response()->json(['status' => false, 'message' => 'gagal input data']);
+        };
     }
 
     /**
@@ -51,9 +65,14 @@ class MejaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMejaRequest $request, Meja $meja)
+    public function update(MejaRequest $request, Meja $meja)
     {
-        //
+        try {
+            $data = $meja->update($request->all());
+            return response()->json(['status' => true, 'message' => ' update data sukses', 'data' => $data]);
+        } catch (Exception | PDOException $e) {
+            return response()->json(['status' => false, 'message' => 'gagal update data', 'error_type' => $e]);
+        }
     }
 
     /**
@@ -61,6 +80,11 @@ class MejaController extends Controller
      */
     public function destroy(Meja $meja)
     {
-        //
+        try {
+            $data = $meja->delete();
+            return Response()->json(['status' => true, 'message' => 'data has been deleted', 'data' => $data]);
+        } catch (Exception | PDOException $e) {
+            return Response()->json(['status' => false, 'message' => 'data failed to delete']);
+        }
     }
 }

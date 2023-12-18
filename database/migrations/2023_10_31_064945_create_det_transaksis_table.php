@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_tranksaksi', function (Blueprint $table) {
-            $table->id('detail_id');
+            $table->id();
             $table->unsignedBigInteger('menu_id');
-            $table->foreign('menu_id')->references('menu_id')->on('menu');
+            $table->foreign('menu_id')->references('id')->on('menu');
             $table->integer('jumlah');
             $table->double('subtotal');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 
